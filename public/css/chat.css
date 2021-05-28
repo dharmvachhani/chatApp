@@ -1,0 +1,128 @@
+.row {
+  margin: 0 !important;
+}
+.leftcolumn {
+  width: 30%;
+  height: 100vh;
+  float: left;
+  border-right-style: solid;
+  overflow: auto;
+}
+
+.rightcolumn {
+  float: left;
+  width: 70%;
+  height: 100vh;
+  background-color: #a5a5a5;
+}
+
+/* left side */
+
+.chatheader {
+  height: 50px;
+  background-color: #187cb7;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.63);
+  margin-bottom: 5px;
+}
+
+.chatheader h1 {
+  float: left;
+  color: aliceblue;
+  font-size: 30px;
+  padding: 10px 10px 10px 20px;
+  margin: 0;
+}
+.chatheader span a {
+  float: right;
+  color: aliceblue;
+  font-size: 20px;
+  padding: 10px 20px 10px 10px;
+  margin: 0;
+}
+
+.chatrow {
+  height: 50px;
+  border-bottom: #444444 solid 1px;
+}
+
+.chatrow h1 {
+  color: #1375cc;
+  font-size: 18px;
+  padding: 16px 16px 16px 20px;
+  margin: 0;
+}
+
+/* right side */
+
+.chatboxheader {
+  top: 0;
+  height: 50px;
+  background-color: #187cb7;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.63);
+  margin-bottom: 5px;
+}
+
+.chatboxheader h1 {
+  float: left;
+  color: aliceblue;
+  font-size: 30px;
+  padding: 10px 10px 10px 20px;
+  margin: 0;
+}
+
+.chatboxheader span {
+  float: right;
+  color: aliceblue;
+  font-size: 20px;
+  padding: 10px 20px 10px 10px;
+  margin: 0;
+}
+
+/* chatbody */
+
+.chatboxbody {
+  height: 88vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: 10px;
+}
+.chatboxbody p {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.chatboxbody .left {
+  margin-left: 0;
+  background-color: #187db7c9;
+  float: left;
+  color: #fff;
+}
+.chatboxbody .right {
+  margin-right: 0;
+  background-color: #fff;
+  float: right;
+}
+
+/* input */
+.chatboxinput {
+  margin-bottom: 0;
+}
+.chatboxinput textarea {
+  width: 90%;
+  border: none;
+}
+.chatboxinput textarea:focus {
+  border: none;
+}
+.chatboxinput button {
+  float: right;
+  width: 10%;
+  background-color: #187cb7;
+  color: #fff;
+}

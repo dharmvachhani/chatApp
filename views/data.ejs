@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatApp</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/chat.css" />
+
+    <script>
+      $(function () {
+        var socket = io();
+        $("form").submit(function () {
+          socket.emit("chat message", $("#m").val());
+          $("#m").val("");
+          return false;
+        });
+        socket.on("chat message", function (msg) {
+          $("#messages").append($("<li>").text(msg));
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="leftcolumn">
+        <div class="row">
+          <div class="chatheader">
+            <h1><%= name %></h1>
+            <span> <a href="/logout"> Logout</a></span>
+          </div>
+          <div class="overflowuser">
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+            <div class="chatrow">
+              <h1>Dharm</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rightcolumn">
+        <div class="chatboxheader">
+          <h1>Dharm</h1>
+          <span>Send chat on Mail</span>
+        </div>
+
+        <div class="chatboxbody">
+          <div class="msgbox"><p class="left">hi</p></div>
+          <br />
+          <div class="msgbox"><p class="right">hi bol</p></div>
+          <br />
+        </div>
+
+        <div class="chatboxinput">
+          <form>
+            <textarea
+              id=""
+              rows="1"
+              placeholder="write message here......"
+            ></textarea>
+            <button>Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
