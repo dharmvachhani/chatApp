@@ -11,17 +11,7 @@
     <link rel="stylesheet" href="./css/chat.css" />
 
     <script>
-      $(function () {
-        var socket = io();
-        $("form").submit(function () {
-          socket.emit("chat message", $("#m").val());
-          $("#m").val("");
-          return false;
-        });
-        socket.on("chat message", function (msg) {
-          $("#messages").append($("<li>").text(msg));
-        });
-      });
+      var io = io("http://localhost:3000");
     </script>
   </head>
 
@@ -38,37 +28,61 @@
             user.email) { %>
 
             <div class="chatrow">
-              <h1><%= alluser[i].username %></h1>
+              <h1>
+                <a
+                  onclick="chatuser(`<%= alluser[i].unique_id %>`,this.innerText)"
+                  ><%= alluser[i].username %></a
+                >
+              </h1>
             </div>
             <%} } %>
           </div>
         </div>
       </div>
 
-      <div class="rightcolumn">
+      <div class="rightcolumn" id="rightcolumn" style="display: none">
         <div class="chatboxheader">
-          <h1>Dharm</h1>
-          <span>Send chat on Mail</span>
+          <h1 id="chatusername">User Not Selected</h1>
         </div>
 
-        <div class="chatboxbody">
+        <div class="chatboxbody" id="chat">
           <div class="msgbox"><p class="left">hi</p></div>
-          <br />
-          <div class="msgbox"><p class="right">hi bol</p></div>
-          <br />
+
+          <div class="msgbox"><p class="right">hi</p></div>
         </div>
 
         <div class="chatboxinput">
-          <form>
+          <form onsubmit="appendmessage()" method="dialog" action="">
             <textarea
-              id=""
+              id="msg"
               rows="1"
               placeholder="write message here......"
             ></textarea>
-            <button>Send</button>
+            <button type="submit">Send</button>
           </form>
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      var objDiv = document.getElementById("chat");
+      objDiv.scrollTop = objDiv.scrollHeight;
+
+      function appendmessage() {
+        const chat = document.getElementById("chat");
+        const message = document.getElementById("msg").value;
+        const msg = `<div class="msgbox"><p class="right">${message}</p></div>`;
+        chat.innerHTML += msg;
+        objDiv.scrollTop = objDiv.scrollHeight;
+        document.getElementById("msg").value = "";
+      }
+
+      function chatuser(uid, name) {
+        document.getElementById("rightcolumn").style.display = "block";
+        console.log(uid);
+        const chatusername = document.getElementById("chatusername");
+        chatusername.innerText = name;
+      }
+    </script>
   </body>
 </html>

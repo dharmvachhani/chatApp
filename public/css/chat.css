@@ -88,30 +88,33 @@
   height: 88vh;
   overflow-y: auto;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   padding-bottom: 10px;
 }
 .chatboxbody p {
-  font-size: 12px;
+  font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
+  max-width: 500px;
 }
 
 .chatboxbody .left {
-  margin-left: 0;
+  margin-left: 3px;
   background-color: #187db7c9;
   float: left;
   color: #fff;
 }
 .chatboxbody .right {
-  margin-right: 0;
+  margin-right: 3px;
   background-color: #fff;
   float: right;
 }
 
 /* input */
 .chatboxinput {
-  margin-bottom: 0;
+  position: fixed;
+  bottom: 0;
+  width: 70%;
 }
 .chatboxinput textarea {
   width: 90%;

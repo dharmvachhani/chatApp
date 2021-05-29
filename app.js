@@ -33,20 +33,7 @@ app.use(
 );
 
 io.on("connection", function (socket) {
-  socket.on("chat message", function (msg) {
-    io.emit("chat message", msg);
-    console.log("My Chat Message is " + msg);
-    const mybodydata = {
-      chat_details: msg,
-    };
-    var data = chatmodel(mybodydata);
-    data.save(function (err) {
-      if (err) {
-      } else {
-        console.log("Saved");
-      }
-    });
-  });
+  console.log("User connected", socket.id);
 });
 
 app.use("/", indexRouter);
