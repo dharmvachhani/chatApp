@@ -16,6 +16,15 @@
   background-color: #a5a5a5;
 }
 
+.rightcolumnstart {
+  float: left;
+  width: 70%;
+  height: 100vh;
+  background-color: #187cb7;
+  text-align: center;
+  align-content: center;
+}
+
 /* left side */
 
 .chatheader {

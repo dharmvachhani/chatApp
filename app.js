@@ -1,17 +1,22 @@
-var createError = require("http-errors");
 var express = require("express");
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var session = require("express-session");
 
+const Chat = require("./models/chatModel");
+
+const app = express();
+
+var http = require("http");
+var server = http.createServer(app);
+
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 require("./db/db");
 
 var indexRouter = require("./routes/index");
-
-var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -32,26 +37,28 @@ app.use(
   })
 );
 
-io.on("connection", function (socket) {
-  console.log("User connected", socket.id);
-});
-
 app.use("/", indexRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+io.on("connection", (socket) => {
+  console.log("socket connected");
+
+  Chat.find().then((result) => {
+    io.emit("store-messages", result);
+  });
+
+  socket.on("send_message", function (data) {
+    const message = new Chat({
+      from: data.from,
+      to: data.to,
+      msg: data.message,
+    });
+    message.save().then(() => {
+      Chat.find().then((result) => {
+        io.emit("store-messages", result);
+      });
+      io.emit("new_message", data);
+    });
+  });
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
-
-app.listen(3000);
+server.listen(3000);

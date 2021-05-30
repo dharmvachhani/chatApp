@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>ChatApp</title>
@@ -9,10 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./css/chat.css" />
-
-    <script>
-      var io = io("http://localhost:3000");
-    </script>
   </head>
 
   <body>
@@ -40,16 +35,21 @@
         </div>
       </div>
 
+      <div
+        class="rightcolumnstart"
+        id="rightcolumnstart"
+        style="display: block"
+      >
+        <h1>Welcome to ChatApp</h1>
+        <h3>Please Select user and start chating</h3>
+      </div>
+
       <div class="rightcolumn" id="rightcolumn" style="display: none">
         <div class="chatboxheader">
           <h1 id="chatusername">User Not Selected</h1>
         </div>
 
-        <div class="chatboxbody" id="chat">
-          <div class="msgbox"><p class="left">hi</p></div>
-
-          <div class="msgbox"><p class="right">hi</p></div>
-        </div>
+        <div class="chatboxbody" id="chat"></div>
 
         <div class="chatboxinput">
           <form onsubmit="appendmessage()" method="dialog" action="">
@@ -64,25 +64,80 @@
       </div>
     </div>
 
+    <script type="text/javascript"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+
     <script type="text/javascript">
+      var io = io();
+
+      var sender = `<%= user.unique_id %>`;
+      var receiver = "";
+      var storemsg = "";
       var objDiv = document.getElementById("chat");
       objDiv.scrollTop = objDiv.scrollHeight;
 
-      function appendmessage() {
+      io.on("store-messages", function (result) {
+        storemsg = result;
+      });
+
+      function chatuser(uid, name) {
+        document.getElementById("rightcolumn").style.display = "block";
+        document.getElementById("rightcolumnstart").style.display = "none";
+
+        const chatusername = document.getElementById("chatusername");
+        chatusername.innerText = name;
+        receiver = uid;
         const chat = document.getElementById("chat");
+        chat.innerHTML = "";
+
+        if (storemsg != null) {
+          for (var i = 0; i < storemsg.length; i++) {
+            if (
+              (storemsg[i].from == sender && storemsg[i].to == receiver) ||
+              (storemsg[i].from == receiver && storemsg[i].to == sender)
+            ) {
+              if (storemsg[i].from == sender) {
+                const chat = document.getElementById("chat");
+                const msg = `<div class="msgbox"><p class="right">${storemsg[i].msg}</p></div>`;
+                chat.innerHTML += msg;
+              } else if (storemsg[i].to == sender) {
+                const chat = document.getElementById("chat");
+                const msg = `<div class="msgbox"><p class="left">${storemsg[i].msg}</p></div>`;
+                chat.innerHTML += msg;
+              }
+            }
+          }
+        }
+      }
+
+      function appendmessage() {
         const message = document.getElementById("msg").value;
-        const msg = `<div class="msgbox"><p class="right">${message}</p></div>`;
-        chat.innerHTML += msg;
+        io.emit("send_message", {
+          from: sender,
+          to: receiver,
+          message: message,
+        });
+
         objDiv.scrollTop = objDiv.scrollHeight;
         document.getElementById("msg").value = "";
       }
 
-      function chatuser(uid, name) {
-        document.getElementById("rightcolumn").style.display = "block";
-        console.log(uid);
-        const chatusername = document.getElementById("chatusername");
-        chatusername.innerText = name;
-      }
+      io.on("new_message", function (data) {
+        if (
+          (data.from == sender && data.to == receiver) ||
+          (data.from == receiver && data.to == sender)
+        )
+          if (data.from == sender) {
+            const chat = document.getElementById("chat");
+            const msg = `<div class="msgbox"><p class="right">${data.message}</p></div>`;
+            chat.innerHTML += msg;
+          } else if (data.to == sender) {
+            const chat = document.getElementById("chat");
+            const msg = `<div class="msgbox"><p class="left">${data.message}</p></div>`;
+            chat.innerHTML += msg;
+          }
+      });
     </script>
   </body>
 </html>

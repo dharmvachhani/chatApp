@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 
 const chatSchema = new mongoose.Schema({
-  unique_id: Number,
   from: Number,
   to: Number,
   msg: String,
