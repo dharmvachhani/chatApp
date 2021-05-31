@@ -1,7 +1,7 @@
 # chatApp 
-###(desktop version)
+### (Desktop Version)
 
-DeskApp is a Mmultiuser chatting app like Whatsapp web
+ChatApp is a Mmultiuser chatting app like Whatsapp web
 
 # Quick start
 Several quick start options are available:
