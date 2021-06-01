@@ -36,4 +36,4 @@ Several quick start options are available:
 ## Demo link
 A fully functional demo is available at
 
-https://dharmvachhani.tk/
+https://chatapp.dharmvachhani.tk/
