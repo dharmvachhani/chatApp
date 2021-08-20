@@ -1,7 +1,7 @@
 # chatApp 
 ### (Desktop Version)
 
-ChatApp is a Multi user chatting app like Whatsapp web
+ChatApp is a Multi user chatting app 
 
 # Quick start
 Several quick start options are available:
